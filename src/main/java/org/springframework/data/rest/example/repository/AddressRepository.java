@@ -1,6 +1,7 @@
-package org.springframework.data.rest.example;
+package org.springframework.data.rest.example.repository;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.example.model.Address;
 
 /**
  * @author Jon Brisbin <jon@jbrisbin.com>

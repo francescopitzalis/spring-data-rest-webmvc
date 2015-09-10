@@ -4,15 +4,15 @@ This deployable web application is an example project that illustrates how to de
 
 ### Use
 
-Either use this project as a template for your own project, or simply include your own artifacts as dependencies in the `build.gradle` file.
+Either use this project as a template for your own project, or simply include your own artifacts as dependencies in the `pom.xml` file.
 
-The easiest way to get going with the REST exporter is to simply run the embedded Tomcat servlet container:
+The easiest way to get going with the REST exporter is to simply run the embedded Jetty servlet container:
 
-    ./gradlew tomcatRun
+    mvn jetty:run
 
-This will expose a server at `http://localhost:8080/spring-data-rest-webmvc/`. Issue curl requests to find out what services are available.
+This will expose a server at `http://localhost:8080/`. Issue curl requests to find out what services are available.
 
-Alternatively, you can build a WAR file using `./gradlew war`, and deploy that into your servlet container.
+Alternatively, you can build a WAR file using `mvn package`, and deploy that into your servlet container.
 
 ### Loading dummy data for testing
 

@@ -1,32 +1,32 @@
-package org.springframework.data.rest.example;
+package org.springframework.data.rest.example.initializer;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
-
-import org.springframework.data.rest.webmvc.RepositoryRestExporterServlet;
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.data.rest.example.config.AppRootConfig;
+import org.springframework.data.rest.example.config.AppWebConfig;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
- * @author Jon Brisbin
+ * @author Francesco Pitzalis
  */
-public class RestExporterWebInitializer implements WebApplicationInitializer {
+public class RestExporterWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-  @Override public void onStartup(ServletContext ctx) throws ServletException {
+	// specify non-web configuration classses (middle-tier and data-tier
+	// configuration)
+	@Override
+	protected Class<?>[] getRootConfigClasses() {
+		return new Class<?>[] { AppRootConfig.class };
+	}
 
-    AnnotationConfigWebApplicationContext rootCtx = new AnnotationConfigWebApplicationContext();
-    rootCtx.register(ApplicationConfig.class);
+	// specify web configuration classes (where configured controllers, view
+	// resolvers, handler mappings, ...)
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
+		return new Class<?>[] { AppWebConfig.class };
+	}
 
-    ctx.addListener(new ContextLoaderListener(rootCtx));
-
-    RepositoryRestExporterServlet exporter = new RepositoryRestExporterServlet();
-
-    ServletRegistration.Dynamic reg = ctx.addServlet("rest-exporter", exporter);
-    reg.setLoadOnStartup(1);
-    reg.addMapping("/*");
-
-  }
+	// map DispatcherServlet to
+	@Override
+	protected String[] getServletMappings() {
+		return new String[] { "/" };
+	}
 
 }
